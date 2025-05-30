@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Style id="labelStyle">
+      <LabelStyle>
+        <scale>1.2</scale> <!-- Increase size if needed -->
+      </LabelStyle>
+	  <LineStyle>
+	  	<color>ff0000ff</color>
+		<scale>1.2</scale>
+		</LineStyle>
+    </Style>
+	<Placemark>
+		<name>Colt location</name>
+		<description>This is a test</description>
+		<styleUrl>#labelStyle</styleUrl>
+		<Point>
+			<coordinates>77.09510343757844,28.503066342190376,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Colt Bangalorelocation</name>
+		<description>This is a test</description>
+		<styleUrl>#labelStyle</styleUrl>
+		<Point>
+			<coordinates>77.2100,28.6139,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Colt newyorklocation</name>
+		<description>This is a test</description>
+		<styleUrl>#labelStyle</styleUrl>
+		<Point>
+			<coordinates>-73.95652033460384,40.77334996895702,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Colt fiber map</name>
+		<styleUrl>#labelStyle</styleUrl>
+		<tessellate>1</tessellate>
+		<LineString>
+        	<coordinates>
+          		77.09510343757844,28.503066342190376,0
+          		77.2100,28.6139,0
+          		-73.95652033460384,40.77334996895702,0
+        	</coordinates>
+      	</LineString>
+    </Placemark>
+  </Document>
+</kml>

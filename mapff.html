@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Colt Map with KML</title>
+    <!--Styling the map-->
+    <style>
+      #map {
+        height: 100vh;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <!-- inserting Google Maps JS API to display the map -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYP3NIanhDTOXdf347RwkUQRrfcy-R1tg&callback=initMap"
+      defer
+    ></script>
+    <!--here we create a map (let map) In which we store the map loaded by the google API-->
+    <!--google.maps.Map(...):- constructor function provided by the google maps JS API.It is used to create and display a new map-->
+    <!--document.getElementbyId("map"):- telling Google Maps to place the map inside that element-->
+    <script>
+      let map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 28.6139, lng: 77.209 }, // Center at Delhi
+          zoom: 3,// how zoomed in the map should be (0 = world, 21+ = buildings)
+        });
+        //Creating a KML layer to add kml file in the map
+        const kmlLayer = new google.maps.KmlLayer({
+          url: 'https://f8cd-103-158-226-243.ngrok-free.app/test.kml', // hosted the kml via a server
+          map: map, // it says Use the map which is just created and attach this KML layer to it
+          preserveViewport: false,// true = keep current zoom, false = auto-zoom to KML
+          suppressInfoWindows: true, // false --> it will show the default popup window, true--> it will  use custom info windows
+        });
+ 
+        // Add custom click listener
+        kmlLayer.addListener("click", function (event) {
+          const latLng = event.latLng; // getting the marker's coordinates
+          // content :- Info to show in popup
+          const content = `
+            <div style="font-size: 16px">
+              <strong>${event.featureData.name}</strong><br/>
+              ${event.featureData.description}
+            </div>`;
+            // event.featureData.name--> fetches the <name> from your KML <Placemark>
+            // event.featureData.description --> fetches the <description> from your KML <Placemark>
+            
+
+          const infowindow = new google.maps.InfoWindow({
+            content: content, // show the info i.e name and description in info window on click
+            position: latLng, // It places the window at the marker's position on click
+          });
+
+          infowindow.open(map);//This displays the InfoWindow on the map at the specified position
+          map.setZoom(10); // zooms in the map to level 10
+          map.panTo(latLng); // This centers the map on the clicked marker, so it's in view.
+        });
+      }
+
+      // Wait until API loads, then init
+      //Make the initMap function available to the whole browser so Google Maps can find and run it.
+      //Make my initMap function available to the whole browser so Google Maps can find and run it.
+      window.initMap = initMap;
+    </script>
+  </body>
+</html>
